@@ -39,10 +39,10 @@ if [[ $1 == "--help" ]]; then
 fi
 
 total=0
+faces="${dieType#d}"
 
 for (( i=0; i<numRolls; i++ )); do
 
-	faces={"$dieType#d"}
 	RESULT=$(( RANDOM % faces + 1 + modifier ))
 
     	if [[ $4 == "--sep" ]]; then

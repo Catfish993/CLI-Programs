@@ -48,7 +48,7 @@ for (( i=0; i<numRolls; i++ )); do
     	if [[ $4 == "--sep" ]]; then
 		echo "Roll $((i + 1)): $dieType = $RESULT"
 	else
-		total=$(( total + RESULT + modifier ))
+		total=$(( total + RESULT ))
 	fi
 done
 

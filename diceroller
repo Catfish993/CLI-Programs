@@ -29,6 +29,12 @@ numRolls=${2:-1}
 
 modifier=${3:-0}
 
+# Array to copy to clipboard
+declare -a diceArray=()
+
+#Gets OS name
+unamestr=$(uname)
+
 if [[ $5 == "true" ]]; then
     set -x
 fi
@@ -44,14 +50,25 @@ faces="${dieType#d}"
 for (( i=0; i<numRolls; i++ )); do
 
 	RESULT=$(( RANDOM % faces + 1 + modifier ))
-
-    	if [[ $4 == "--sep" ]]; then
+	
+	# Writes to an array
+    	diceArray+=("$RESULT")
+	
+	# Used for seperate roll output
+	if [[ $4 == "--sep" ]]; then
 		echo "Roll $((i + 1)): $dieType = $RESULT"
 	else
 		total=$(( total + RESULT ))
+		diceArray+=$total
 	fi
 done
 
 if [[ $4 != "--sep" ]]; then
     echo "Total: $total"
 fi
+
+# Pipes to clipboard
+if [[ "$unamestr" == "Darwin" ]]; then
+	echo "${diceArray[@]}" | pbcopy
+fi
+

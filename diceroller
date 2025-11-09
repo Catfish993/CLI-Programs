@@ -1,8 +1,5 @@
 #!/bin/bash
 
-#TODO
-# Add Modifiers as an argument
-
 showHelp() {
 
 	echo "-------------------------------------"

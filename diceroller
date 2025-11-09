@@ -45,24 +45,8 @@ total=0
 
 for (( i=0; i<numRolls; i++ )); do
 
-	if [ "$dieType" == "d4" ]; then
- 	   	RESULT=$(( RANDOM % 4 + 1 + modifier ))
-	elif [ "$dieType" == "d6" ]; then
-    		RESULT=$(( RANDOM % 6 + 1 + modifier)) 
-	elif [ "$dieType" == "d8" ]; then
-	    	RESULT=$(( RANDOM % 8 + 1 + modifier))
-	elif [ "$dieType" == "d10" ]; then
-	    	RESULT=$(( RANDOM % 10 + 1 + modifier))
-	elif [ "$dieType" == "d12" ]; then
-	    	RESULT=$(( RANDOM % 12 + 1 + modifier))
-	elif [ "$dieType" == "d20" ]; then
-	    	RESULT=$(( RANDOM % 20 + 1 + modifier))
-	else
-        	echo "Error: Unsupported die type."
-		echo "Use --help for help"
-        	exit 1
-    	fi
-
+	faces={"$dieType#d"}
+	RESULT=$(( RANDOM % faces + 1 + modifier ))
 
     	if [[ $4 == "--sep" ]]; then
 		echo "Roll $((i + 1)): $dieType = $RESULT"

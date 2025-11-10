@@ -52,14 +52,13 @@ for (( i=0; i<numRolls; i++ )); do
 	RESULT=$(( RANDOM % faces + 1 + modifier ))
 	
 	# Writes to an array
-    	diceArray+=("$RESULT")
-	
+	diceArray+=("$RESULT")
+
 	# Used for seperate roll output
 	if [[ $4 == "--sep" ]]; then
 		echo "Roll $((i + 1)): $dieType = $RESULT"
 	else
 		total=$(( total + RESULT ))
-		diceArray+=$total
 	fi
 done
 

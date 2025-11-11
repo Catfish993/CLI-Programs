@@ -2,30 +2,30 @@
 
 showHelp() {
 
-	echo "-------------------------------------"
-	echo "CLI Dice Roller"
-	echo
-	echo "Usage: diceroller [OPTION] [INT] [MOD] [--sep] [FLAG] "
-	echo
-	echo "Options:"
-	echo "--help     Displays this help message"
-	echo " d4        Rolls a d4"
-	echo " d6        Rolls a d6"
-	echo " d8        Rolls a d8"
-	echo " d10       Rolls a d10"
-	echo " d12       Rolls a d12"
-	echo " d20       Rolls a d20"
-	echo "INT: how many times you want the dice to rolled and added together."
-	echo "MOD: adds a + or - number to the roll. Defaults to 0"
-	echo "--sep: allows for each die roll to be printed seperately. Die rolls are not combined."
-	echo "FLAG: Default is false. Set to true to set -x"
-	echo "-------------------------------------"
+  echo "-------------------------------------"
+  echo "CLI Dice Roller"
+  echo
+  echo "Usage: diceroller [OPTION] [INT] [MOD] [--sep] [FLAG] "
+  echo
+  echo "Options:"
+  echo "--help     Displays this help message"
+  echo " d4        Rolls a d4"
+  echo " d6        Rolls a d6"
+  echo " d8        Rolls a d8"
+  echo " d10       Rolls a d10"
+  echo " d12       Rolls a d12"
+  echo " d20       Rolls a d20"
+  echo "INT: how many times you want the dice to rolled and added together."
+  echo "MOD: adds a + or - number to the roll. Defaults to 0"
+  echo "--sep: allows for each die roll to be printed seperately. Die rolls are not combined."
+  echo "FLAG: Default is false. Set to true to set -x"
+  echo "-------------------------------------"
 
 }
 
 dieType=$1
 
-numRolls=${2:-1}  
+numRolls=${2:-1}
 
 modifier=${3:-0}
 
@@ -36,38 +36,39 @@ declare -a diceArray=()
 unamestr=$(uname)
 
 if [[ $5 == "true" ]]; then
-    set -x
+  set -x
 fi
 
 if [[ $1 == "--help" ]]; then
-	showHelp
-	exit 0
+  showHelp
+  exit 0
 fi
 
 total=0
 faces="${dieType#d}"
 
-for (( i=0; i<numRolls; i++ )); do
+for ((i = 0; i < numRolls; i++)); do
 
-	RESULT=$(( RANDOM % faces + 1 + modifier ))
-	
-	# Writes to an array
-	diceArray+=("$RESULT")
+  RESULT=$((RANDOM % faces + 1 + modifier))
 
-	# Used for seperate roll output
-	if [[ $4 == "--sep" ]]; then
-		echo "Roll $((i + 1)): $dieType = $RESULT"
-	else
-		total=$(( total + RESULT ))
-	fi
+  # Writes to an array
+  diceArray+=("$RESULT")
+
+  # Used for seperate roll output
+  if [[ $4 == "--sep" ]]; then
+    echo "Roll $((i + 1)): $dieType = $RESULT"
+  else
+    total=$((total + RESULT))
+  fi
 done
 
 if [[ $4 != "--sep" ]]; then
-    echo "Total: $total"
+  echo "Total: $total"
 fi
 
 # Pipes to clipboard
 if [[ "$unamestr" == "Darwin" ]]; then
-	echo "${diceArray[@]}" | pbcopy
+  echo "${diceArray[@]}" | pbcopy
+elif [[ "$unamestr" == "Linux" ]]; then
+  echo "${diceArray[@]}" | xclip -selection clipboard
 fi
-

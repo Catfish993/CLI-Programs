@@ -1,5 +1,12 @@
 {
   "spells": {
+    "Animate Dead": {
+        "range": "30'",
+        "class": "Cleric, Magic User",
+        "level": "4, 5",
+        "duration": "special",
+        "description": "The casting of this spell causes the mortal remains of one or more deceased creatures to arise as animated skeletons or zombies. Such undead monsters persist until slain, and obey the verbal commands of the caster. A single casting of this spell may animate a number of hit dice of undead equal to twice the caster's level of ability, and no more. Animated skeletons have hit dice equal to the number the creature had in life; for skeletons of members of player character races, this means one hit die, regardless of the character level of the deceased. Zombies have one more hit die than the creature had in life. The sort of monsters created depend on the condition of the remains. A reasonably intact corpse may only arise as a zombie, while similarly intact skeletal remains may only be animated as a skeleton. The caster chooses which remains are animated when casting the spell, in any case where there are more bodies than the caster can animate. No character may normally control more hit dice of undead than 4 times their level, regardless of how many times this spell is cast."
+    },
     "Sleep": {
       "range": "90'",
       "class": "Magic User",

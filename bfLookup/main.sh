@@ -18,6 +18,9 @@ fi
 # so if statement. if module == spells start lookup in spells and return spell name with descriptors
 if [[ "$module" == "spells" ]]; then
     lookup=$(jq --arg mod "$module" --arg targ "$target" '.[$mod][$targ]' "$JSON_SPELLS")
+else
+    echo "Target not found."
+    exit 1
 fi
 
 echo "$lookup"

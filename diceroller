@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# TODO
-# There needs to be an option to have seperate die rolls but take into account the HD of monsters
-# WHat that means is I need a way to say Roll this d8 twice, add them together with a modifier.
-# Im thinking there needs to be two seperate functions now. One for sep roll and one for the total. 
-
 showHelp() {
 
   echo "-------------------------------------"

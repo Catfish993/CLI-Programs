@@ -1,21 +1,22 @@
 #!/bin/bash
 
+# TODO
+# There needs to be an option to have seperate die rolls but take into account the HD of monsters
+# WHat that means is I need a way to say Roll this d8 twice, add them together with a modifier.
+# Im thinking there needs to be two seperate functions now. One for sep roll and one for the total. 
+
 showHelp() {
 
   echo "-------------------------------------"
   echo "CLI Dice Roller"
   echo
-  echo "Usage: diceroller [OPTION] [INT] [MOD] [--sep] [FLAG] "
+  echo "Usage: diceroller [OPTION] [INT] [HD] [MOD] [--sep] [FLAG] "
   echo
   echo "Options:"
   echo "--help     Displays this help message"
-  echo " d4        Rolls a d4"
-  echo " d6        Rolls a d6"
-  echo " d8        Rolls a d8"
-  echo " d10       Rolls a d10"
-  echo " d12       Rolls a d12"
-  echo " d20       Rolls a d20"
+  echo " dn        Rolls an n sided dice"
   echo "INT: how many times you want the dice to rolled and added together."
+  echo "HD: HD of monsters appearing. Takes an INT."
   echo "MOD: adds a + or - number to the roll. Defaults to 0"
   echo "--sep: allows for each die roll to be printed seperately. Die rolls are not combined."
   echo "FLAG: Default is false. Set to true to set -x"
@@ -27,7 +28,10 @@ dieType=$1
 
 numRolls=${2:-1}
 
-modifier=${3:-0}
+monHd=${3:-1}
+
+modifier=${4:-0}
+
 
 # Array to copy to clipboard
 declare -a diceArray=()
@@ -35,7 +39,7 @@ declare -a diceArray=()
 #Gets OS name
 unamestr=$(uname)
 
-if [[ $5 == "true" ]]; then
+if [[ $6 == "true" ]]; then
   set -x
 fi
 
@@ -46,24 +50,33 @@ fi
 
 total=0
 faces="${dieType#d}"
+totalMonsterHp=0
 
-for ((i = 0; i < numRolls; i++)); do
+sepRoll() {
+    for ((i = 0; i < numRolls; i++)); do
+        for ((j =0; j < monHd; j++)); do
+            RESULT=$((RANDOM % faces + 1 + $modifier))
+            totalMonsterHp=$((totalMonsterHp + RESULT ))
+        done
+        diceArray+=("$totalMonsterHp")
+        echo "Roll $((i + 1)): $dieType = $totalMonsterHp"
+        totalMonsterHp=0
+    done
+}
 
-  RESULT=$((RANDOM % faces + 1 + modifier))
+singleRoll() {
 
-  # Writes to an array
-  diceArray+=("$RESULT")
+    for ((i = 0; i < numRolls; i++)); do
+        RESULT=$((RANDOM % faces + 1 + modifier))
+        total=$((total + RESULT))
+    done
+    echo "Total = $total"
+}
 
-  # Used for seperate roll output
-  if [[ $4 == "--sep" ]]; then
-    echo "Roll $((i + 1)): $dieType = $RESULT"
-  else
-    total=$((total + RESULT))
-  fi
-done
-
-if [[ $4 != "--sep" ]]; then
-  echo "Total: $total"
+if [[ $5 == "--sep" ]]; then
+    sepRoll
+else
+    singleRoll
 fi
 
 # Pipes to clipboard

@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # A CLI for easy lookup of information for the Basic Fantasy RPG
-
-JSON_SPELLS="/home/joshua-giroux/Documents/Development/CLI-Programs/bfLookup/modules/SpellsData.json"
+JSON_SPELLS="$HOME/Documents/Development/CLI-Programs/bfLookup/modules/SpellsData.json"
 
 # The module the lookup starts with
 module=$1

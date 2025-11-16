@@ -2,13 +2,14 @@
 
 # A CLI for easy lookup of information for the Basic Fantasy RPG
 JSON_SPELLS="$HOME/Documents/Development/CLI-Programs/bfLookup/modules/SpellsData.json"
+JSON_SKILLS="$HOME/Documents/Development/CLI-Programs/bfLookup/modules/ClassSkills.json"
 
 # The module the lookup starts with
 module=$1
 # Indicates a specific target within the chosen module.
 target=$2
 
-if [[ ! -f $JSON_SPELLS ]]; then
+if [[ ! -f $JSON_SPELLS ]] &&  [[ ! -f $JSON_SKILLS ]]; then
     echo "File not found!"
     exit 1
 fi

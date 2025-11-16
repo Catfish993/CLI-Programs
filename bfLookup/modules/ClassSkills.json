@@ -1,0 +1,31 @@
+{
+    "skills": 
+    [{
+            "class": "Thief",
+            "abilities": 
+                [{
+                    "level": 1,
+                    "open locks": 25,
+                    "remove traps": 20,
+                    "pick pockets": 30,
+                    "move silently": 25,
+                    "climb walls": 80,
+                    "hide": 10,
+                    "listen": 30
+               },
+               {
+
+                    "level": 2,
+                    "open locks": 30,
+                    "remove traps": 25,
+                    "pick pockets": 35,
+                    "move silently": 30,
+                    "climb walls": 81,
+                    "hide": 15,
+                    "listen": 34
+               } 
+                ]
+    }]
+
+
+}

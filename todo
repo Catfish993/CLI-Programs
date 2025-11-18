@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# A tast list program
+newTask=$2
+declare -a tasks=()
+
+if [[ $1 == "-a" ]]; then
+    tasks+=($newTask)
+fi
+
+for item in "${tasks[@]}"
+do
+    echo "$item"
+done
+
+

@@ -3,14 +3,22 @@
 # A tast list program
 newTask=$2
 declare -a tasks=()
+file="list.txt"
+mapfile -t tasks < $file
 
+# Flag checking
 if [[ $1 == "-a" ]]; then
     tasks+=($newTask)
+    echo "$newTask" >> $file
+elif [[ $1 == "-d" ]]; then
+    sed -i "s/$newTask//g" $file
+    sed -i '/^$/d' $file
 fi
 
-for item in "${tasks[@]}"
-do
-    echo "$item"
-done
+arrayLength=${#tasks[@]}
 
+for ((i=0; i<${arrayLength}; i++));
+do
+    echo "$i. ${tasks[$i]}"
+done
 
